@@ -1,29 +1,30 @@
-FROM ubuntu:14.04
+# Latest version of ubuntu
+FROM nvidia/cuda:9.0-base
 
-ENV SOURCE https://github.com/merrygreek/xmr-stak.git
+# Default git repository
+ENV GIT_REPOSITORY https://github.com/merrygreek/xmr-stak.git
 ENV XMRSTAK_CMAKE_FLAGS -DXMR-STAK_COMPILE=generic -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF
 
 # Innstall packages
-RUN apt-get update && \
-    set -x && \
-    apt-get install -qq --no-install-recommends -y ca-certificates git cmake libhwloc-dev libmicrohttpd-dev libssl-dev
-
-WORKDIR /tmp
-
-RUN git clone $SOURCE . && \
-    cmake ${XMRSTAK_CMAKE_FLAGS} . && \
-    make
-
-WORKDIR /usr/local/bin/
-
-RUN mv /tmp/bin/* /usr/local/bin/ && \
-    rm -rf /tmp/* && \
-    apt-get purge -y -qq cmake wget git libhwloc-dev libmicrohttpd-dev libssl-dev && \
-    apt-get clean -qq
-
+RUN apt-get update \
+    && set -x \
+    && apt-get install -qq --no-install-recommends -y build-essential ca-certificates cmake cuda-core-9-0 git cuda-cudart-dev-9-0 libhwloc-dev libmicrohttpd-dev libssl-dev \
+    && git clone $GIT_REPOSITORY \
+    && cd /xmr-stak \
+    && cmake ${XMRSTAK_CMAKE_FLAGS} . \
+    && make \
+    && cd - \
+    && mv /xmr-stak/bin/* /usr/local/bin/ \
+    && rm -rf /xmr-stak \
+    && apt-get purge -y -qq build-essential cmake cuda-core-9-0 git cuda-cudart-dev-9-0 libhwloc-dev libmicrohttpd-dev libssl-dev \
+    && apt-get clean -qq
+    
 COPY config.txt /usr/local/bin/
 COPY cpu.txt /usr/local/bin/
 COPY pools.txt /usr/local/bin/
 
+VOLUME /mnt
+
+WORKDIR /mnt
 
 ENTRYPOINT ["/usr/local/bin/xmr-stak"]

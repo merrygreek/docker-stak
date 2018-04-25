@@ -25,6 +25,5 @@ COPY config.txt /usr/local/bin/
 COPY cpu.txt /usr/local/bin/
 COPY pools.txt /usr/local/bin/
 
-EXPOSE 8080
 
 ENTRYPOINT ["/usr/local/bin/xmr-stak"]

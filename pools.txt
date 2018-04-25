@@ -14,7 +14,7 @@
 
 "pool_list" :
 [
-        {"pool_address" : "turtle.ingest.cryptoknight.cc:4901", "wallet_address" : "TRTLv3McrGBNauWQCx6kVDV38RMG3RbjNcA2551KNDmtDpAzzvx254ocn5vQptQ8M2LLqLrtDBvXjLg51k9WNUddUGMfBtxcwRv", "rig_id" : "", "pool_password" : "x", "use_nicehash" : false, "use_tls" : false, "tls_fingerprint" : "", "pool_weight" : 1 },
+{"pool_address" : "10.17.9.252:3333", "wallet_address" : "x", "rig_id" : "", "pool_password" : "x", "use_nicehash" :false, "use_tls" : false, "tls_fingerprint" : "", "pool_weight" : 2 },
 ],
 
 /*
@@ -34,4 +34,4 @@
  *
  */
 
-"currency" : "turtlecoin",
+"currency" : "monero7",

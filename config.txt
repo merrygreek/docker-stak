@@ -136,7 +136,7 @@
  *
  * httpd_port - Port we should listen on. Default, 0, will switch off the server.
  */
-"httpd_port" : 8080,
+"httpd_port" : 0,
 
 /*
  * HTTP Authentication
